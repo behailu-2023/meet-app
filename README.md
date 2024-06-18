@@ -1,31 +1,26 @@
 Meet App
-To build a serverless, progressive web application (PWA) with React using a test-driven development (TDD) technique. The application uses the Google Calendar API to fetch upcoming events.
 
+To build a serverless, progressive web application (PWA) with React using a test-driven development (TDD) technique. The application uses the Google Calendar API to fetch upcoming events.
 
 Project Features & Scenarios 
 
 Feature 1: Filter Events By City
 
-User Story: As a user, I should be able to filter events by city, so that I can find events that are relevant to my location.
+  Scenario: When user hasn’t searched for a city, show upcoming events from all cities
+    Given the user is on the events page
+    When the user hasn’t searched for a city
+    Then the user should see upcoming events from all cities
 
-Scenario 1:When user hasn’t searched for a specific city, show upcoming events from all cities.
+  Scenario: User should see a list of suggestions when they search for a city
+    Given the user is on the events page
+    When the user start typing a city name in the search bar
+    Then the user should see a list of city suggestions
 
-	Given user hasn’t searched for any city;
-	When the user opens the app;
-	Then the user should see a list of upcoming events.
-
-Scenario 2:User should see a list of suggestions when they search for a city.
-
-	Given the main page is open;
-	When user starts typing in the city textbox;
-	Then the user should receive a list of cities (suggestions) that match what they’ve typed.
-
-Scenario 3:User can select a city from the suggested list.
-
-	Given user was typing “Berlin” in the city textbox AND the list of suggested cities is 		showing;
-	When the user selects a city (e.g., “Berlin, Germany”) from the list;
-	Then their city should be changed to that city (i.e., “Berlin, Germany”) AND the user should 	receive a list of upcoming events in that city.
-
+  Scenario: User can select a city from the suggested list
+    Given the user is on the events page and has started typing a city name in the search bar
+    When the user see a list of city suggestions
+    Then the user can select a city from the suggested list and the user should see upcoming events for the selected city
+    
 Feature 2.Show/Hide Event Details.
 
 User Story 1:As a user, I should be able to see event elements collapsed by default, so that I can view a concise list of events without overwhelming details.
