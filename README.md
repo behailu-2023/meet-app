@@ -87,5 +87,12 @@ User Story: As a user, I should be able to see a chart with the number of upcomi
  Scenario: Show a chart with the number of upcoming events in each city
     	Given the user is on the event details page
     	When the user view the charts section
-    	Then the user should see a chart showing the number of upcoming events in each city
+    	Then the user should see a chart showing the number of upcoming events in each city.
+
+     Using Serverless Functionality can help me on my work by:
+     Reducing Maintenance: Eliminates the need to manage servers, freeing up time to focus on core tasks.
+     Cost Efficiency: Lowers costs by only charging for actual usage, not idle server time.
+     Scalability: Automatically scales with demand, ensuring performance during peak times.
+     Rapid Deployment: Enables quick development and deployment of new features and updates.
+     Event-Driven Processing: Enhances responsiveness by triggering functions in real-time based on specific events.
 
