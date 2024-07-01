@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import EventList from './components/EventList';
+import CitySearch from './components/CitySearch';
+import NumberOfEvents from './components/NumberOfEvents';
+import { getEvents } from './api';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [events, setEvents] = useState([]);
+  const [eventCount, setEventCount] = useState(32);
+  const [currentCity, setCurrentCity] = useState('all');
+
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchEvents = async () => {
+    const allEvents = await getEvents();
+    setEvents(allEvents.slice(0, eventCount));
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, [eventCount, fetchEvents]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <CitySearch setCurrentCity={setCurrentCity} />
+        <NumberOfEvents setEventCount={setEventCount} />
+        <EventList events={events} />
+      </div>
   );
-}
+};
 
 export default App;
