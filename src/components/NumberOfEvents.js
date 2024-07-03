@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 
-const NumberOfEvents = ({ setEventCount }) => {
+const NumberOfEvents = ({ currentNOE, setCurrentNOE }) => {
   const [inputValue, setInputValue] = useState(32);
 
-  const handleInputChange = (event) => {
-    const value = parseInt(event.target.value, 10);
-    setInputValue(value);
-    setEventCount(value);
+  const handleInputChanged = (event) => {
+    const numberValue = parseInt(event.target.value, 10);
+    if (!isNaN(numberValue) && numberValue > 0) {
+      setInputValue(numberValue);
+      setCurrentNOE(numberValue);
+    } else {
+      setInputValue(''); // Set to empty string if invalid
+    }
   };
 
   return (
     <div>
       <label htmlFor="number-of-events">Number of Events: </label>
       <input
-        id="number-of-events"
-        name="number-of-events"
         type="number"
         className="number-of-events"
+        id="number-of-events"
+        //name="number-of-events"
         role="spinbutton"
         value={inputValue}
-        onChange={handleInputChange}
+        onChange={handleInputChanged}
       />
     </div>
   );
