@@ -15,17 +15,24 @@ const App = () => {
     const fetchData = async () => {
       try {
         const allEvents = await getEvents();
-        if (allEvents) {
+        if (allEvents && Array.isArray(allEvents)) {
           const filteredEvents = currentCity === "See all cities" ?
             allEvents :
             allEvents.filter(event => event.location === currentCity);
-          setEvents(filteredEvents.slice(0, currentNOE));
+          
+          console.log('allEvents:', allEvents);
+          console.log('filteredEvents:', filteredEvents);
+          console.log('currentNOE:', currentNOE);
+          
+          setEvents((filteredEvents || []).slice(0, currentNOE));
           setAllLocations(extractLocations(allEvents));
         } else {
-          console.error('No events returned from getEvents');
+          console.error('No events returned from getEvents or not an array');
+          setEvents([]);
         }
       } catch (error) {
         console.error('Error fetching events:', error);
+        setEvents([]);
       }
     };
     fetchData();
