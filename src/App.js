@@ -9,29 +9,34 @@ const App = () => {
   const [events, setEvents] = useState([]);
   const [currentCity, setCurrentCity] = useState('See all cities');
   const [currentNOE, setCurrentNOE] = useState(32);
-  const [allLocations, setAllLocations] = useState ([]);
-
+  const [allLocations, setAllLocations] = useState([]);
 
   useEffect(() => {
-   
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchData = async () => {
-    const allEvents = await getEvents();
-    const filteredEvents = currentCity === "See all cities" ?
-      allEvents :
-      allEvents.filter(event => event.location === currentCity)
-    setEvents(filteredEvents.slice(0, currentNOE));
-    setAllLocations(extractLocations(allEvents));
-  };
-  fetchData();
-}, [currentCity, currentNOE]);
+    const fetchData = async () => {
+      try {
+        const allEvents = await getEvents();
+        if (allEvents) {
+          const filteredEvents = currentCity === "See all cities" ?
+            allEvents :
+            allEvents.filter(event => event.location === currentCity);
+          setEvents(filteredEvents.slice(0, currentNOE));
+          setAllLocations(extractLocations(allEvents));
+        } else {
+          console.error('No events returned from getEvents');
+        }
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+    fetchData();
+  }, [currentCity, currentNOE]);
 
   return (
-      <div className='App'>
-        <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
-        <NumberOfEvents currentNOE= {currentNOE} setCurrentNOE={setCurrentNOE} />
-        <EventList events={events} />
-      </div>
+    <div className='App'>
+      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+      <NumberOfEvents currentNOE={currentNOE} setCurrentNOE={setCurrentNOE} />
+      <EventList events={events} />
+    </div>
   );
 };
 

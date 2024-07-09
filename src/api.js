@@ -110,4 +110,4 @@ export const getEvents = async () => {
       return result.events;
     } else return null;
   }
-}
+};
