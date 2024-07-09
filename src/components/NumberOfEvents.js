@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const NumberOfEvents = ({ currentNOE, setCurrentNOE }) => {
-  const [inputValue, setInputValue] = useState(32);
+  const [inputValue, setInputValue] = useState(currentNOE);
 
   const handleInputChanged = (event) => {
     const numberValue = parseInt(event.target.value, 10);
@@ -12,6 +12,10 @@ const NumberOfEvents = ({ currentNOE, setCurrentNOE }) => {
       setInputValue(''); // Set to empty string if invalid
     }
   };
+
+  useEffect(() => {
+    setInputValue(currentNOE);
+  }, [currentNOE]);
 
   return (
     <div>

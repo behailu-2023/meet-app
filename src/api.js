@@ -45,7 +45,7 @@ export const getAccessToken = async () => {
 const getToken = async (code) => {
   try {
     const encodeCode = encodeURIComponent(code);
-    const response = await fetch('https://6bum41ul3i.execute-api.eu-central-1.amazonaws.com/dev/api/token' + '/' + encodeCode);
+    const response = await fetch(`https://6bum41ul3i.execute-api.eu-central-1.amazonaws.com/dev/api/token/${encodeCode}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
@@ -53,7 +53,7 @@ const getToken = async (code) => {
     access_token && localStorage.setItem("access_token", access_token);
     return access_token;
   } catch (error) {
-    error.json();
+    console.error('Error fetching token:', error);
   }
 };
 
@@ -102,7 +102,7 @@ export const getEvents = async () => {
 
   if (token) {
     removeQuery();
-    const url = "https://6bum41ul3i.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" + "/" + token;
+    const url = `https://6bum41ul3i.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/${token}`; 
     const response = await fetch(url);
     const result = await response.json();
     if (result) {
