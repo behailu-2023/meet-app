@@ -18,7 +18,7 @@ describe('<NumberOfEvents /> component', () => {
 
   test('update numberOfEvents when user types', () => {
     const setCurrentNOEMock = jest.fn();
-    render(<NumberOfEvents setCurrentNOE={setCurrentNOEMock} />);
+    render(<NumberOfEvents setCurrentNOE={setCurrentNOEMock} setErrorAlert={() => { }} />);
     
     const input = screen.getByRole('spinbutton');
   fireEvent.change(input, { target: { value: '10' } });

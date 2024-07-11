@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const NumberOfEvents = ({ currentNOE, setCurrentNOE }) => {
+const NumberOfEvents = ({ currentNOE=32, setCurrentNOE, setErrorAlert }) => {
   const [inputValue, setInputValue] = useState(currentNOE);
 
   const handleInputChanged = (event) => {
@@ -11,6 +11,15 @@ const NumberOfEvents = ({ currentNOE, setCurrentNOE }) => {
     } else {
       setInputValue(''); // Set to empty string if invalid
     }
+    let numberText;
+    if (isNaN(event.target.value) || event.target.value <= 0) {
+        numberText = "Only positive numbers are allowed"
+    }
+
+    else {
+        numberText = ""
+    }
+    setErrorAlert(numberText);
   };
 
   useEffect(() => {
@@ -24,7 +33,7 @@ const NumberOfEvents = ({ currentNOE, setCurrentNOE }) => {
         type="number"
         className="number-of-events"
         id="number-of-events"
-        //name="number-of-events"
+        name="number-of-events"
         role="spinbutton"
         value={inputValue}
         onChange={handleInputChanged}
